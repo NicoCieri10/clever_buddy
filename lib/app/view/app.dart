@@ -12,7 +12,7 @@ class PageApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cleverClient = CleverClient();
+    const cleverClient = CleverClient();
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: cleverClient),
