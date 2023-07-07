@@ -7,16 +7,21 @@ environment:
   sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  bloc: ^8.1.1
+  appsize: ^1.2.1
+  bloc: ^8.1.2
+  clever_client:
+    path: package/clever_client
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.2
+  flutter_bloc: ^8.1.3
   flutter_localizations:
     sdk: flutter
+  go_router: ^9.0.2
   intl: ^0.17.0
+  meta: ^1.8.0
 
 dev_dependencies:
-  bloc_test: ^9.1.1
+  bloc_test: ^9.1.3
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
