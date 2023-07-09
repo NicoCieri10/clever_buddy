@@ -1,4 +1,4 @@
-import 'package:clever_buddy/home/cubit/home_cubit.dart';
+import 'package:clever_buddy/counter/counter.dart';
 import 'package:clever_buddy/home/home.dart';
 import 'package:clever_buddy/l10n/l10n.dart';
 import 'package:clever_client/clever_client.dart';
@@ -74,11 +74,11 @@ class _AppState extends State<App> {
             name: 'home',
             builder: (context, state) => const HomePage(),
           ),
-          // GoRoute(
-          //   path: '/product',
-          //   name: 'product',
-          //   builder: (context, state) => const ProductPage(),
-          // ),
+          GoRoute(
+            path: '/counter',
+            name: 'counter',
+            builder: (context, state) => const CounterPage(),
+          ),
         ],
       );
 }

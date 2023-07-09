@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
 
+  static const name = 'counter';
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -29,11 +31,13 @@ class CounterView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           FloatingActionButton(
+            heroTag: 'btn0',
             onPressed: () => context.read<CounterCubit>().increment(),
             child: const Icon(Icons.add),
           ),
           const SizedBox(height: 8),
           FloatingActionButton(
+            heroTag: 'btn1',
             onPressed: () => context.read<CounterCubit>().decrement(),
             child: const Icon(Icons.remove),
           ),
