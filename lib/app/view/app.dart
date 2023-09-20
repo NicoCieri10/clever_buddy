@@ -1,10 +1,9 @@
 import 'package:appsize/appsize.dart';
-import 'package:clever_buddy/counter/counter.dart';
 import 'package:clever_buddy/home/home.dart';
 import 'package:clever_buddy/l10n/l10n.dart';
 import 'package:clever_buddy/login/login.dart';
+import 'package:clever_buddy/register/register.dart';
 import 'package:core/core.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -19,15 +18,8 @@ class PageApp extends StatelessWidget {
       providers: [
         RepositoryProvider.value(value: cleverClient),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<HomeCubit>(
-            create: (context) => HomeCubit(),
-          ),
-        ],
-        child: AppSize(
-          builder: (context, orientation, deviceType) => const App(),
-        ),
+      child: AppSize(
+        builder: (context, orientation, deviceType) => const App(),
       ),
     );
   }
@@ -55,10 +47,7 @@ class _AppState extends State<App> {
       title: 'Material App',
       debugShowCheckedModeBanner: false,
       routerConfig: _router,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: ThemeColors.primaryColor,
-      ),
+      theme: const AppTheme(ThemeColors.primary).theme(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
     );
@@ -80,15 +69,15 @@ class _AppState extends State<App> {
           builder: (_, state) => const HomePage(),
         ),
         GoRoute(
-          path: CounterPage.route,
-          name: CounterPage.route,
-          builder: (_, state) => const CounterPage(),
+          path: RegisterPage.route,
+          name: RegisterPage.route,
+          builder: (_, state) => const RegisterPage(),
         ),
       ],
       redirect: (context, state) {
-        if (state.matchedLocation == '/') {
-          return LoginPage.route;
-        }
+        // if (state.matchedLocation == '/') {
+        //   return LoginPage.route;
+        // }
         return null;
       },
     );
