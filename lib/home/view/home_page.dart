@@ -1,3 +1,4 @@
+import 'package:clever_buddy/counter/counter.dart';
 import 'package:clever_buddy/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -5,7 +6,7 @@ import 'package:go_router/go_router.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  static const name = 'home';
+  static const route = '/';
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.add_circle_outline),
-            onPressed: () => context.pushNamed('counter'),
+            onPressed: () => context.pushNamed(CounterPage.route),
           ),
         ],
       ),

@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
 
-  static const name = 'counter';
+  static const route = '/counter';
 
   @override
   Widget build(BuildContext context) {

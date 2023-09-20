@@ -1,7 +1,9 @@
+import 'package:appsize/appsize.dart';
 import 'package:clever_buddy/counter/counter.dart';
 import 'package:clever_buddy/home/home.dart';
 import 'package:clever_buddy/l10n/l10n.dart';
-import 'package:clever_client/clever_client.dart';
+import 'package:clever_buddy/login/login.dart';
+import 'package:core/core.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +25,9 @@ class PageApp extends StatelessWidget {
             create: (context) => HomeCubit(),
           ),
         ],
-        child: const App(),
+        child: AppSize(
+          builder: (context, orientation, deviceType) => const App(),
+        ),
       ),
     );
   }
@@ -42,7 +46,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    _router = createRouter;
+    _router = router(context);
   }
 
   @override
@@ -53,34 +57,42 @@ class _AppState extends State<App> {
       routerConfig: _router,
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: Colors.amber,
+        colorSchemeSeed: ThemeColors.primaryColor,
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 
-  GoRouter get createRouter => GoRouter(
-        initialLocation: '/home',
-        errorBuilder: (context, state) => const RoutingErrorPage(),
-        routes: <GoRoute>[
-          // GoRoute(
-          //   path: '/login',
-          //   name: 'login',
-          //   builder: (context, state) => const LoginPage(),
-          // ),
-          GoRoute(
-            path: '/home',
-            name: 'home',
-            builder: (context, state) => const HomePage(),
-          ),
-          GoRoute(
-            path: '/counter',
-            name: 'counter',
-            builder: (context, state) => const CounterPage(),
-          ),
-        ],
-      );
+  GoRouter router(BuildContext context) {
+    return GoRouter(
+      initialLocation: '/',
+      errorBuilder: (_, state) => const RoutingErrorPage(),
+      routes: <GoRoute>[
+        GoRoute(
+          path: LoginPage.route,
+          name: LoginPage.route,
+          builder: (_, state) => const LoginPage(),
+        ),
+        GoRoute(
+          path: HomePage.route,
+          name: HomePage.route,
+          builder: (_, state) => const HomePage(),
+        ),
+        GoRoute(
+          path: CounterPage.route,
+          name: CounterPage.route,
+          builder: (_, state) => const CounterPage(),
+        ),
+      ],
+      redirect: (context, state) {
+        if (state.matchedLocation == '/') {
+          return LoginPage.route;
+        }
+        return null;
+      },
+    );
+  }
 }
 
 class RoutingErrorPage extends StatelessWidget {
