@@ -91,9 +91,7 @@ class RoutingErrorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text(
-          'No hay rutas',
-        ),
+        child: Text('No hay rutas'),
       ),
     );
   }
