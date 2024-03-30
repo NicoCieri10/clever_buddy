@@ -1,5 +1,6 @@
 import 'package:clever_buddy/home/home.dart';
 import 'package:clever_buddy/splash/cubit/splash_cubit.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -31,6 +32,7 @@ class SplashView extends StatelessWidget {
             ..showSnackBar(
               const SnackBar(
                 content: Text('No internet connection'),
+                backgroundColor: ThemeColors.error,
               ),
             );
         }
@@ -41,6 +43,7 @@ class SplashView extends StatelessWidget {
             ..showSnackBar(
               SnackBar(
                 content: Text(state.error ?? 'An unknown error occurred'),
+                backgroundColor: ThemeColors.error,
               ),
             );
         }
@@ -49,13 +52,15 @@ class SplashView extends StatelessWidget {
           context.pushReplacementNamed(HomePage.route);
         }
       },
-      child: const Scaffold(
-        body: Center(
+      child: Scaffold(
+        backgroundColor: ThemeColors.primary[300],
+        body: const Center(
           child: Text(
             'CleverBuddy',
             style: TextStyle(
               fontSize: 44,
               fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
         ),

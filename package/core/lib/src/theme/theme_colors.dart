@@ -9,7 +9,7 @@ abstract class ThemeColors {
   static const primaryDark = Color.fromARGB(255, 128, 97, 5);
 
   /// Custom red color
-  static const red = Color(0xffD32F2F);
+  static const error = Color(0xffD32F2F);
 
   /// Custom blue color
   static const blue = Color(0xff1976D2);
