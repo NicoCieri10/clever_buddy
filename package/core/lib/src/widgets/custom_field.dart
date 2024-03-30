@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CustomField extends StatelessWidget {
   /// Custom TextFormField
   const CustomField({super.key});
-  // TODO: Add custom properties
+  // TODO(NicoCieri10): Add custom properties
 
   @override
   Widget build(BuildContext context) {

@@ -1,12 +1,16 @@
-import 'package:appsize/appsize.dart';
+import 'package:clever_buddy/calendar/calendar.dart';
 import 'package:clever_buddy/home/home.dart';
 import 'package:clever_buddy/l10n/l10n.dart';
 import 'package:clever_buddy/login/login.dart';
+import 'package:clever_buddy/notes/notes.dart';
 import 'package:clever_buddy/register/register.dart';
+import 'package:clever_buddy/settings/settings.dart';
+import 'package:clever_buddy/splash/splash.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sizer/sizer.dart';
 
 class PageApp extends StatelessWidget {
   const PageApp({super.key});
@@ -18,7 +22,7 @@ class PageApp extends StatelessWidget {
       providers: [
         RepositoryProvider.value(value: cleverClient),
       ],
-      child: AppSize(
+      child: Sizer(
         builder: (context, orientation, deviceType) => const App(),
       ),
     );
@@ -44,7 +48,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Material App',
+      title: 'Clever Buddy',
       debugShowCheckedModeBanner: false,
       routerConfig: _router,
       theme: const AppTheme(ThemeColors.primary).theme(),
@@ -59,19 +63,39 @@ class _AppState extends State<App> {
       errorBuilder: (_, state) => const RoutingErrorPage(),
       routes: <GoRoute>[
         GoRoute(
-          path: LoginPage.route,
-          name: LoginPage.route,
-          builder: (_, state) => const LoginPage(),
+          path: SplashPage.route,
+          name: SplashPage.route,
+          builder: (_, state) => SplashPage(key: state.pageKey),
         ),
         GoRoute(
-          path: HomePage.route,
-          name: HomePage.route,
-          builder: (_, state) => const HomePage(),
+          path: LoginPage.route,
+          name: LoginPage.route,
+          builder: (_, state) => LoginPage(key: state.pageKey),
         ),
         GoRoute(
           path: RegisterPage.route,
           name: RegisterPage.route,
-          builder: (_, state) => const RegisterPage(),
+          builder: (_, state) => RegisterPage(key: state.pageKey),
+        ),
+        GoRoute(
+          path: HomePage.route,
+          name: HomePage.route,
+          builder: (_, state) => HomePage(key: state.pageKey),
+        ),
+        GoRoute(
+          path: NotesPage.route,
+          name: NotesPage.route,
+          builder: (_, state) => NotesPage(key: state.pageKey),
+        ),
+        GoRoute(
+          path: CalendarPage.route,
+          name: CalendarPage.route,
+          builder: (_, state) => CalendarPage(key: state.pageKey),
+        ),
+        GoRoute(
+          path: SettingsPage.route,
+          name: SettingsPage.route,
+          builder: (_, state) => SettingsPage(key: state.pageKey),
         ),
       ],
       redirect: (context, state) {

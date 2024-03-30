@@ -1,6 +1,6 @@
-import 'package:appsize/appsize.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

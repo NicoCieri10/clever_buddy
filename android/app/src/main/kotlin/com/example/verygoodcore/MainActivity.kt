@@ -1,4 +1,4 @@
-package com.example.verygoodcore.clever_buddy
+package com.clever_buddy
 
 import io.flutter.embedding.android.FlutterActivity
 
