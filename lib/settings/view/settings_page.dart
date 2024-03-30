@@ -1,5 +1,10 @@
+import 'package:clever_buddy/auth/auth.dart';
+import 'package:clever_buddy/login/login.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sizer/sizer.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -17,23 +22,34 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void onSignOut() {
+      context.read<AuthManager>().signOut();
+      context.go(LoginPage.route);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
         centerTitle: true,
       ),
-      body: const Column(
+      body: Column(
         children: [
           Flexible(
             child: Column(
               children: [
-                Spacer(),
-                Text('Settings'),
-                Spacer(),
+                const Spacer(),
+                const Text('Settings'),
+                const Spacer(),
+                CustomButton(
+                  text: 'Sign out',
+                  width: 80.w,
+                  onPressed: onSignOut,
+                ),
+                SizedBox(height: 2.h),
               ],
             ),
           ),
-          CustomNavBar(selectedItem: NavBarItems.settings),
+          const CustomNavBar(selectedItem: NavBarItems.settings),
         ],
       ),
     );

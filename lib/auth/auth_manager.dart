@@ -5,6 +5,8 @@ class AuthManager {
 
   User? currentUser() => _auth.client.auth.currentUser;
 
+  bool isLoggedIn() => _auth.client.auth.currentUser != null;
+
   Future<void> signOut() => _auth.client.auth.signOut();
 
   Future<AuthResponse> signIn({

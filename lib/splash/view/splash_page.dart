@@ -1,3 +1,4 @@
+import 'package:clever_buddy/auth/auth.dart';
 import 'package:clever_buddy/home/home.dart';
 import 'package:clever_buddy/login/login.dart';
 import 'package:clever_buddy/splash/cubit/splash_cubit.dart';
@@ -14,7 +15,9 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SplashCubit(),
+      create: (context) => SplashCubit(
+        authManager: context.read<AuthManager>(),
+      ),
       child: const SplashView(),
     );
   }
@@ -58,14 +61,14 @@ class SplashView extends StatelessWidget {
         }
       },
       child: Scaffold(
-        backgroundColor: ThemeColors.primary[300],
-        body: const Center(
+        backgroundColor: ThemeColors.primary[50],
+        body: Center(
           child: Text(
             'CleverBuddy',
             style: TextStyle(
               fontSize: 44,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Theme.of(context).primaryColor,
             ),
           ),
         ),

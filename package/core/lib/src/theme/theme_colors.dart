@@ -16,6 +16,9 @@ abstract class ThemeColors {
 
   /// Custom yellow color
   static const yellow = Color(0xffFBC02D);
+
+  /// Custom green color
+  static const success = Color(0xff388E3C);
 }
 
 /// Custom theme

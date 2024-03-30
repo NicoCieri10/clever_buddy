@@ -1,6 +1,7 @@
 import 'package:clever_buddy/auth/auth.dart';
 import 'package:clever_buddy/home/home.dart';
 import 'package:clever_buddy/login/cubit/login_cubit.dart';
+import 'package:clever_buddy/register/register.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -103,9 +104,10 @@ class _LoginViewState extends State<LoginView> {
                     CustomField(
                       hintText: 'Email',
                       controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
                       validator: (email) {
                         if (email == null || email.isEmpty) {
-                          return 'Password is required';
+                          return 'Email required';
                         }
                         return null;
                       },
@@ -125,10 +127,14 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       validator: (pass) {
                         if (pass == null || pass.isEmpty) {
-                          return 'Password is required';
+                          return 'Password required';
                         }
                         return null;
                       },
+                    ),
+                    TextButton(
+                      onPressed: () => context.replaceNamed(RegisterPage.route),
+                      child: const Text("Don't have an account? Sign up"),
                     ),
                     const Spacer(),
                     CustomButton(
