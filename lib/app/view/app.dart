@@ -1,3 +1,4 @@
+import 'package:clever_buddy/auth/auth.dart';
 import 'package:clever_buddy/calendar/calendar.dart';
 import 'package:clever_buddy/home/home.dart';
 import 'package:clever_buddy/l10n/l10n.dart';
@@ -17,10 +18,11 @@ class PageApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const cleverClient = CleverClient();
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider.value(value: cleverClient),
+        RepositoryProvider<AuthManager>(
+          create: (context) => AuthManager(),
+        ),
       ],
       child: Sizer(
         builder: (context, orientation, deviceType) => const App(),

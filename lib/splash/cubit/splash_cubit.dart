@@ -25,7 +25,8 @@ class SplashCubit extends Cubit<SplashState> {
       }
 
       // emit(state.copyWith(status: SplashStatus.offline));
-      emit(state.copyWith(status: SplashStatus.authenticated));
+      // emit(state.copyWith(status: SplashStatus.authenticated));
+      emit(state.copyWith(status: SplashStatus.unauthenticated));
     } catch (e) {
       emit(
         state.copyWith(

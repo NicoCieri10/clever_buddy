@@ -1,4 +1,5 @@
 import 'package:clever_buddy/home/home.dart';
+import 'package:clever_buddy/login/login.dart';
 import 'package:clever_buddy/splash/cubit/splash_cubit.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,10 @@ class SplashView extends StatelessWidget {
                 backgroundColor: ThemeColors.error,
               ),
             );
+        }
+
+        if (state.isUnauthenticated) {
+          context.pushReplacementNamed(LoginPage.route);
         }
 
         if (state.isAuthenticated) {
