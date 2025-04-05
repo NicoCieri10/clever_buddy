@@ -19,8 +19,9 @@ class LoginCubit extends Cubit<LoginState> {
         password: password.trim(),
       );
 
-      print(authUser);
+      if (authUser.user == null) throw const AuthException('AuthCubit error');
 
+      // TODO(NicoCieri): save user on DataPersistence
       // await _dataPersistence.setUserInfo(user);
 
       emit(state.copyWith(status: LoginStatus.authenticated));

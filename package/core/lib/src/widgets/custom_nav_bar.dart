@@ -69,11 +69,11 @@ class CustomNavBar extends StatelessWidget {
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(15.sp),
         ),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: Colors.black.withOpacity(0.25),
+            color: Colors.black26,
             blurRadius: 10,
-            offset: const Offset(3, 0),
+            offset: Offset(3, 0),
           ),
         ],
       ),
@@ -131,7 +131,7 @@ class _NavBarItem extends StatelessWidget {
     final isSelected = item == selectedItem;
 
     return InkWell(
-      splashColor: theme.primaryColor.withOpacity(0.5),
+      splashColor: theme.primaryColor.withAlpha(128),
       onTap: () {
         if (!isSelected) context.replaceNamed(item.route);
       },
