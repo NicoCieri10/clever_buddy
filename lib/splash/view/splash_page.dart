@@ -1,4 +1,3 @@
-import 'package:clever_buddy/auth/auth.dart';
 import 'package:clever_buddy/home/home.dart';
 import 'package:clever_buddy/login/login.dart';
 import 'package:clever_buddy/splash/cubit/splash_cubit.dart';
@@ -15,9 +14,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SplashCubit(
-        authManager: context.read<AuthManager>(),
-      ),
+      create: (context) => SplashCubit(),
       child: const SplashView(),
     );
   }

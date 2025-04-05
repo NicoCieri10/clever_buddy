@@ -1,8 +1,6 @@
-import 'package:clever_buddy/auth/auth.dart';
 import 'package:clever_buddy/login/login.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
@@ -23,7 +21,7 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void onSignOut() {
-      context.read<AuthManager>().signOut();
+      AuthManager.signOut();
       context.go(LoginPage.route);
     }
 

@@ -1,4 +1,3 @@
-import 'package:clever_buddy/auth/auth.dart';
 import 'package:clever_buddy/calendar/calendar.dart';
 import 'package:clever_buddy/home/home.dart';
 import 'package:clever_buddy/l10n/l10n.dart';
@@ -13,32 +12,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
-class PageApp extends StatelessWidget {
-  const PageApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<AuthManager>(
-          create: (context) => AuthManager(),
-        ),
-      ],
+      providers: const [],
       child: Sizer(
-        builder: (context, orientation, deviceType) => const App(),
+        builder: (context, orientation, deviceType) => const AppView(),
       ),
     );
   }
 }
 
-class App extends StatefulWidget {
-  const App({super.key});
+class AppView extends StatefulWidget {
+  const AppView({super.key});
 
   @override
-  State<App> createState() => _AppState();
+  State<AppView> createState() => _AppViewState();
 }
 
-class _AppState extends State<App> {
+class _AppViewState extends State<AppView> {
   late final GoRouter _router;
 
   @override

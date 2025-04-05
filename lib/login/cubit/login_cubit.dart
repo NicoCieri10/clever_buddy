@@ -1,17 +1,12 @@
 import 'package:bloc/bloc.dart';
-import 'package:clever_buddy/auth/auth.dart';
+import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit({
-    required AuthManager authManager,
-  })  : _authManager = authManager,
-        super(const LoginState());
-
-  final AuthManager _authManager;
+  LoginCubit() : super(const LoginState());
 
   Future<void> login({
     required String email,
@@ -19,7 +14,7 @@ class LoginCubit extends Cubit<LoginState> {
   }) async {
     emit(state.copyWith(status: LoginStatus.attempting));
     try {
-      final authUser = await _authManager.signIn(
+      final authUser = await AuthManager.signIn(
         email: email.trim(),
         password: password.trim(),
       );
@@ -31,11 +26,11 @@ class LoginCubit extends Cubit<LoginState> {
       emit(state.copyWith(status: LoginStatus.authenticated));
     } on AuthException catch (e) {
       if (e.message == 'Email not confirmed') {
-        await _authManager.resendEmail(
+        await AuthManager.resendEmail(
           email: email.toLowerCase(),
           type: OtpType.signup,
         );
-        await _authManager.signOut();
+        await AuthManager.signOut();
         emit(state.copyWith(status: LoginStatus.emailNotVerified));
         return;
       }

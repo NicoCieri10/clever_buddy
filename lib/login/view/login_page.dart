@@ -1,4 +1,3 @@
-import 'package:clever_buddy/auth/auth.dart';
 import 'package:clever_buddy/home/home.dart';
 import 'package:clever_buddy/login/cubit/login_cubit.dart';
 import 'package:clever_buddy/register/register.dart';
@@ -16,9 +15,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(
-        authManager: context.read<AuthManager>(),
-      ),
+      create: (context) => LoginCubit(),
       child: const LoginView(),
     );
   }

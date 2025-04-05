@@ -1,4 +1,3 @@
-import 'package:clever_buddy/auth/auth.dart';
 import 'package:clever_buddy/login/login.dart';
 import 'package:clever_buddy/register/register.dart';
 import 'package:core/core.dart';
@@ -15,9 +14,7 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => RegisterCubit(
-        authManager: context.read<AuthManager>(),
-      ),
+      create: (_) => RegisterCubit(),
       child: const RegisterView(),
     );
   }

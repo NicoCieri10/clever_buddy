@@ -1,16 +1,11 @@
 import 'package:bloc/bloc.dart';
-import 'package:clever_buddy/auth/auth.dart';
+import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit({
-    required AuthManager authManager,
-  })  : _authManager = authManager,
-        super(const RegisterState());
-
-  final AuthManager _authManager;
+  RegisterCubit() : super(const RegisterState());
 
   Future<void> register({
     required String email,
@@ -19,7 +14,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(state.copyWith(status: RegisterStatus.attempting));
 
     try {
-      final authUser = await _authManager.signUp(
+      final authUser = await AuthManager.signUp(
         email: email.trim(),
         password: password.trim(),
       );
@@ -37,7 +32,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       //   ),
       // );
 
-      await _authManager.signOut();
+      await AuthManager.signOut();
 
       emit(state.copyWith(status: RegisterStatus.registered));
     } catch (e) {

@@ -1,19 +1,14 @@
 import 'package:bloc/bloc.dart';
-import 'package:clever_buddy/auth/auth.dart';
+import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 part 'splash_state.dart';
 
 class SplashCubit extends Cubit<SplashState> {
-  SplashCubit({
-    required AuthManager authManager,
-  })  : _authManager = authManager,
-        super(const SplashState()) {
+  SplashCubit() : super(const SplashState()) {
     init();
   }
-
-  final AuthManager _authManager;
 
   Future<void> init() async {
     emit(state.copyWith(status: SplashStatus.attempting));
@@ -30,9 +25,7 @@ class SplashCubit extends Cubit<SplashState> {
         return;
       }
 
-      final isLoggedIn = _authManager.isLoggedIn();
-
-      if (!isLoggedIn) {
+      if (!AuthManager.isLoggedIn) {
         emit(state.copyWith(status: SplashStatus.unauthenticated));
         return;
       }
