@@ -3,6 +3,7 @@ import 'package:clever_buddy/register/register.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
@@ -49,9 +50,7 @@ class _RegisterViewState extends State<RegisterView> {
                 backgroundColor: ThemeColors.error,
               ),
             );
-        }
-
-        if (state.isError) {
+        } else if (state.isError) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -60,9 +59,7 @@ class _RegisterViewState extends State<RegisterView> {
                 backgroundColor: ThemeColors.error,
               ),
             );
-        }
-
-        if (state.isRegistered) {
+        } else if (state.isRegistered) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -82,17 +79,17 @@ class _RegisterViewState extends State<RegisterView> {
             child: Padding(
               padding: EdgeInsets.symmetric(
                 vertical: 10.sp,
-                horizontal: 30.sp,
+                horizontal: 20.sp,
               ),
               child: Form(
                 key: formKey,
                 child: Column(
                   children: [
-                    const Spacer(flex: 2),
+                    const Spacer(),
                     Text(
                       'Sign Up',
                       style: TextStyle(
-                        fontSize: 20.sp,
+                        fontSize: 24.sp,
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).primaryColor,
                       ),
@@ -109,7 +106,7 @@ class _RegisterViewState extends State<RegisterView> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10.sp),
+                    Gap(15.sp),
                     CustomField(
                       hintText: 'Password',
                       controller: password0Controller,
@@ -131,7 +128,7 @@ class _RegisterViewState extends State<RegisterView> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10.sp),
+                    Gap(15.sp),
                     CustomField(
                       hintText: 'Confirm Password',
                       controller: password1Controller,
@@ -162,12 +159,12 @@ class _RegisterViewState extends State<RegisterView> {
                       onPressed: () => context.replaceNamed(LoginPage.route),
                       child: const Text('Already have an account? Log in'),
                     ),
-                    const Spacer(),
+                    const Spacer(flex: 2),
                     CustomButton(
                       onPressed: onRegister,
                       text: 'Sign Up',
                     ),
-                    const Spacer(flex: 6),
+                    Gap(20.sp),
                   ],
                 ),
               ),

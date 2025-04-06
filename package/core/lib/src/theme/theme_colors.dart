@@ -30,10 +30,8 @@ class AppTheme {
   final Color selectedColor;
 
   /// Custom theme data
-  ThemeData theme() {
-    return ThemeData(
-      useMaterial3: true,
-      colorSchemeSeed: selectedColor,
-    );
-  }
+  ThemeData get theme => ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: selectedColor,
+      );
 }

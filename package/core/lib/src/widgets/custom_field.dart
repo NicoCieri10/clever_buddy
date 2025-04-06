@@ -116,6 +116,7 @@ class CustomField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final outlineBorderRadius = BorderRadius.circular(15.sp);
+    final fontSize = 14.sp;
 
     const primaryText = Colors.black87;
 
@@ -144,7 +145,7 @@ class CustomField extends StatelessWidget {
 
     final decoration = InputDecoration(
       hintText: hintText,
-      hintStyle: hintStyle ?? TextStyle(fontSize: 9.sp),
+      hintStyle: hintStyle ?? TextStyle(fontSize: fontSize),
       enabledBorder: !error ? enabledBorderOutline : errorBorderOutline,
       focusedBorder: !error ? focusedBorderOutline : errorBorderOutline,
       errorBorder: errorBorderOutline,
@@ -164,7 +165,7 @@ class CustomField extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         decoration: decoration,
-        style: style ?? TextStyle(fontSize: 9.sp),
+        style: style ?? TextStyle(fontSize: fontSize),
         keyboardType: keyboardType,
         validator: validator,
         textAlign: textAlign,

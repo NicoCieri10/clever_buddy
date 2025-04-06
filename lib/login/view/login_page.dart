@@ -4,6 +4,7 @@ import 'package:clever_buddy/register/register.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
@@ -48,9 +49,7 @@ class _LoginViewState extends State<LoginView> {
                 backgroundColor: ThemeColors.error,
               ),
             );
-        }
-
-        if (state.isEmailNotVerified) {
+        } else if (state.isEmailNotVerified) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -59,9 +58,7 @@ class _LoginViewState extends State<LoginView> {
                 backgroundColor: ThemeColors.error,
               ),
             );
-        }
-
-        if (state.isError) {
+        } else if (state.isError) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -70,9 +67,9 @@ class _LoginViewState extends State<LoginView> {
                 backgroundColor: ThemeColors.error,
               ),
             );
+        } else if (state.isAuthenticated) {
+          context.goNamed(HomePage.route);
         }
-
-        if (state.isAuthenticated) context.goNamed(HomePage.route);
       },
       child: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
@@ -82,17 +79,17 @@ class _LoginViewState extends State<LoginView> {
             child: Padding(
               padding: EdgeInsets.symmetric(
                 vertical: 10.sp,
-                horizontal: 30.sp,
+                horizontal: 20.sp,
               ),
               child: Form(
                 key: formKey,
                 child: Column(
                   children: [
-                    const Spacer(flex: 2),
+                    const Spacer(),
                     Text(
                       'Login',
                       style: TextStyle(
-                        fontSize: 20.sp,
+                        fontSize: 24.sp,
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).primaryColor,
                       ),
@@ -109,7 +106,7 @@ class _LoginViewState extends State<LoginView> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10.sp),
+                    Gap(15.sp),
                     CustomField(
                       hintText: 'Password',
                       controller: passwordController,
@@ -133,12 +130,12 @@ class _LoginViewState extends State<LoginView> {
                       onPressed: () => context.replaceNamed(RegisterPage.route),
                       child: const Text("Don't have an account? Sign up"),
                     ),
-                    const Spacer(),
+                    const Spacer(flex: 2),
                     CustomButton(
-                      onPressed: onLogin,
+                      onPressed: _onLogin,
                       text: 'Login',
                     ),
-                    const Spacer(flex: 6),
+                    Gap(20.sp),
                   ],
                 ),
               ),
@@ -149,7 +146,7 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Future<void> onLogin() async {
+  Future<void> _onLogin() async {
     FocusScope.of(context).requestFocus(FocusNode());
     if (!(formKey.currentState?.validate() ?? false)) return;
 
