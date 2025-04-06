@@ -26,37 +26,7 @@ class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SplashCubit, SplashState>(
-      listener: (context, state) {
-        if (state.isOffline) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              const SnackBar(
-                content: Text('No internet connection'),
-                backgroundColor: ThemeColors.error,
-              ),
-            );
-        }
-
-        if (state.isFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text(state.error ?? 'An unknown error occurred'),
-                backgroundColor: ThemeColors.error,
-              ),
-            );
-        }
-
-        if (state.isUnauthenticated) {
-          context.pushReplacementNamed(LoginPage.route);
-        }
-
-        if (state.isAuthenticated) {
-          context.pushReplacementNamed(HomePage.route);
-        }
-      },
+      listener: _listener,
       child: Scaffold(
         backgroundColor: ThemeColors.primary[50],
         body: Center(
@@ -71,5 +41,31 @@ class SplashView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _listener(BuildContext context, SplashState state) {
+    if (state.isOffline) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          const SnackBar(
+            content: Text('No internet connection'),
+            backgroundColor: ThemeColors.error,
+          ),
+        );
+    } else if (state.isFailure) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(state.error ?? 'An unknown error occurred'),
+            backgroundColor: ThemeColors.error,
+          ),
+        );
+    } else if (state.isUnauthenticated) {
+      context.pushReplacementNamed(LoginPage.route);
+    } else if (state.isAuthenticated) {
+      context.pushReplacementNamed(HomePage.route);
+    }
   }
 }

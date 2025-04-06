@@ -18,7 +18,7 @@ class SplashCubit extends Cubit<SplashState> {
         () {},
       );
 
-      final result = await InternetConnectionChecker().hasConnection;
+      final result = await InternetConnectionChecker.instance.hasConnection;
 
       if (!result) {
         emit(state.copyWith(status: SplashStatus.offline));
