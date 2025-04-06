@@ -70,7 +70,7 @@ class _HomeViewState extends State<HomeView>
                           'Home',
                           style: TextStyle(
                             color: theme.primaryColor,
-                            fontSize: 10.sp,
+                            fontSize: 16.sp,
                           ),
                         ),
                       ),
@@ -80,7 +80,7 @@ class _HomeViewState extends State<HomeView>
                           'Quick Session',
                           style: TextStyle(
                             color: theme.primaryColor,
-                            fontSize: 10.sp,
+                            fontSize: 16.sp,
                           ),
                         ),
                       ),
