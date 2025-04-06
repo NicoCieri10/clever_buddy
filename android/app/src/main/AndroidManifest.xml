@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.clever_buddy">
+    package="com.clever.buddy">
     <application
         android:label="CleverBuddy"
         android:name="${applicationName}"

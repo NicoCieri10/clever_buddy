@@ -29,8 +29,8 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.clever_buddy"
-    compileSdkVersion 34
+    namespace "com.clever.buddy"
+    compileSdkVersion 35
 
     compileOptions {
         coreLibraryDesugaringEnabled true
@@ -48,9 +48,9 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.clever_buddy"
-        minSdkVersion 23
-        targetSdkVersion 34
+        applicationId "com.clever.buddy"
+        minSdkVersion 24
+        targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
