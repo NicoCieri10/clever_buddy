@@ -8,7 +8,7 @@ import 'package:clever_buddy/settings/settings.dart';
 import 'package:clever_buddy/splash/splash.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
@@ -17,12 +17,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: const [],
-      child: Sizer(
-        builder: (context, orientation, deviceType) => const AppView(),
-      ),
-    );
+    return const AppView();
   }
 }
 
@@ -36,27 +31,45 @@ class AppView extends StatefulWidget {
 class _AppViewState extends State<AppView> {
   late final GoRouter _router;
 
+  final _overlayStyle = const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarBrightness: Brightness.light,
+    statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarColor: Colors.white,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  );
+
   @override
   void initState() {
     super.initState();
     _router = router(context);
+    SystemChrome.setSystemUIOverlayStyle(_overlayStyle);
   }
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
     return MaterialApp.router(
       title: 'Clever Buddy',
-      debugShowCheckedModeBanner: false,
       routerConfig: _router,
-      theme: const AppTheme(ThemeColors.primary).theme(),
+      theme: const AppTheme(ThemeColors.primary).theme,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      builder: (context, child) {
+        return MediaQuery(
+          data: mediaQuery.copyWith(textScaler: TextScaler.noScaling),
+          child: Sizer(
+            builder: (_, __, ___) => child!,
+          ),
+        );
+      },
     );
   }
 
   GoRouter router(BuildContext context) {
     return GoRouter(
-      initialLocation: '/',
+      initialLocation: SplashPage.route,
       errorBuilder: (_, state) => const RoutingErrorPage(),
       routes: <GoRoute>[
         GoRoute(
