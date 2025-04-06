@@ -1,5 +1,5 @@
 import 'package:clever_buddy/app/app.dart';
-import 'package:clever_buddy/register/register.dart';
+import 'package:clever_buddy/auth/auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

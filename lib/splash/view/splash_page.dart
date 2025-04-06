@@ -1,6 +1,6 @@
+import 'package:clever_buddy/auth/auth.dart';
 import 'package:clever_buddy/home/home.dart';
-import 'package:clever_buddy/login/login.dart';
-import 'package:clever_buddy/splash/cubit/splash_cubit.dart';
+import 'package:clever_buddy/splash/splash.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,16 +1,4 @@
-import 'package:clever_buddy/calendar/calendar.dart';
-import 'package:clever_buddy/home/home.dart';
-import 'package:clever_buddy/l10n/l10n.dart';
-import 'package:clever_buddy/login/login.dart';
-import 'package:clever_buddy/notes/notes.dart';
-import 'package:clever_buddy/register/register.dart';
-import 'package:clever_buddy/settings/settings.dart';
-import 'package:clever_buddy/splash/splash.dart';
-import 'package:core/core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
-import 'package:sizer/sizer.dart';
+part of '../app.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -108,13 +96,32 @@ class _AppViewState extends State<AppView> {
           builder: (_, state) => SettingsPage(key: state.pageKey),
         ),
       ],
-      redirect: (context, state) {
-        // if (state.matchedLocation == '/') {
-        //   return LoginPage.route;
-        // }
-        return null;
-      },
+      redirect: _routerRedirect,
     );
+  }
+
+  FutureOr<String?> _routerRedirect(
+    BuildContext context,
+    GoRouterState state,
+  ) {
+    final currentUser = Supabase.instance.client.auth.currentUser;
+
+    final authRoutes = [
+      SplashPage.route,
+      LoginPage.route,
+      RegisterPage.route,
+    ];
+
+    /// User not authenticated
+    if (currentUser == null) {
+      final allowedRoutes = authRoutes;
+
+      if (!allowedRoutes.contains(state.uri.toString())) {
+        return LoginPage.route;
+      }
+    }
+
+    return null;
   }
 }
 

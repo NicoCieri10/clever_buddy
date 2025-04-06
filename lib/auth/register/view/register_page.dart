@@ -1,6 +1,4 @@
-import 'package:clever_buddy/home/home.dart';
-import 'package:clever_buddy/login/cubit/login_cubit.dart';
-import 'package:clever_buddy/register/register.dart';
+import 'package:clever_buddy/auth/auth.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,53 +6,46 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
-  static const route = '/login';
+  static const route = '/register';
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(),
-      child: const LoginView(),
+      create: (_) => RegisterCubit(),
+      child: const RegisterView(),
     );
   }
 }
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _RegisterViewState extends State<RegisterView> {
   final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final password0Controller = TextEditingController();
+  final password1Controller = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  bool obscureText = true;
+  bool obscureText0 = true;
+  bool obscureText1 = true;
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginState>(
+    return BlocListener<RegisterCubit, RegisterState>(
       listener: (context, state) {
-        if (state.isUnauthenticated) {
+        if (state.isEmailAlreadyInUse) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
               const SnackBar(
-                content: Text('Invalid email or password'),
-                backgroundColor: ThemeColors.error,
-              ),
-            );
-        } else if (state.isEmailNotVerified) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              const SnackBar(
-                content: Text('Email not verified'),
+                content: Text('Email already in use'),
                 backgroundColor: ThemeColors.error,
               ),
             );
@@ -67,8 +58,16 @@ class _LoginViewState extends State<LoginView> {
                 backgroundColor: ThemeColors.error,
               ),
             );
-        } else if (state.isAuthenticated) {
-          context.goNamed(HomePage.route);
+        } else if (state.isRegistered) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(
+                content: Text('Registered successfully'),
+                backgroundColor: ThemeColors.success,
+              ),
+            );
+          context.goNamed(LoginPage.route);
         }
       },
       child: GestureDetector(
@@ -87,7 +86,7 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     const Spacer(),
                     Text(
-                      'Login',
+                      'Sign Up',
                       style: TextStyle(
                         fontSize: 24.sp,
                         fontWeight: FontWeight.bold,
@@ -109,15 +108,17 @@ class _LoginViewState extends State<LoginView> {
                     Gap(15.sp),
                     CustomField(
                       hintText: 'Password',
-                      controller: passwordController,
-                      obscureText: obscureText,
+                      controller: password0Controller,
+                      obscureText: obscureText0,
                       suffixIcon: IconButton(
                         icon: Icon(
-                          obscureText ? Icons.visibility : Icons.visibility_off,
+                          obscureText0
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                           size: 15.sp,
                         ),
                         onPressed: () =>
-                            setState(() => obscureText = !obscureText),
+                            setState(() => obscureText0 = !obscureText0),
                       ),
                       validator: (pass) {
                         if (pass == null || pass.isEmpty) {
@@ -126,14 +127,41 @@ class _LoginViewState extends State<LoginView> {
                         return null;
                       },
                     ),
+                    Gap(15.sp),
+                    CustomField(
+                      hintText: 'Confirm Password',
+                      controller: password1Controller,
+                      obscureText: obscureText1,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          obscureText1
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          size: 15.sp,
+                        ),
+                        onPressed: () =>
+                            setState(() => obscureText1 = !obscureText1),
+                      ),
+                      validator: (pass) {
+                        if (pass == null || pass.isEmpty) {
+                          return 'Confirm password';
+                        }
+
+                        if (pass != password0Controller.text) {
+                          return 'Passwords do not match';
+                        }
+
+                        return null;
+                      },
+                    ),
                     TextButton(
-                      onPressed: () => context.replaceNamed(RegisterPage.route),
-                      child: const Text("Don't have an account? Sign up"),
+                      onPressed: () => context.replaceNamed(LoginPage.route),
+                      child: const Text('Already have an account? Log in'),
                     ),
                     const Spacer(flex: 2),
                     CustomButton(
-                      onPressed: _onLogin,
-                      text: 'Login',
+                      onPressed: onRegister,
+                      text: 'Sign Up',
                     ),
                     Gap(20.sp),
                   ],
@@ -146,13 +174,13 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Future<void> _onLogin() async {
+  Future<void> onRegister() async {
     FocusScope.of(context).requestFocus(FocusNode());
     if (!(formKey.currentState?.validate() ?? false)) return;
 
-    await context.read<LoginCubit>().login(
+    await context.read<RegisterCubit>().register(
           email: emailController.text,
-          password: passwordController.text,
+          password: password0Controller.text,
         );
   }
 }
