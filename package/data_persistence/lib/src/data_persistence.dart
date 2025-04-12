@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
+import 'package:data_persistence/src/data_persistence_exceptions.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:data_persistence/src/data_persistence_exceptions.dart';
 
 /// {@template data_persistence}
 /// This class handles the local storage of data.
@@ -66,8 +66,9 @@ class DataPersistence {
   /// Returns the user credentials.
   User? get getUser {
     try {
-      final userMap =
-          (_userInfo.get(UserInfoKeys.user) as Map?)?.cast<String, dynamic>();
+      final user = _userInfo.get(UserInfoKeys.user) as Map?;
+      final userMap = user?.cast<String, dynamic>();
+
       if ((userMap?.isEmpty ?? true) || userMap == null) return null;
 
       return User.fromMap(userMap);
